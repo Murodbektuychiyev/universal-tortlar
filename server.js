@@ -12,8 +12,8 @@ app.use(express.static(__dirname)); // index.html va boshqa fayllar
 app.use('/images', express.static(path.join(__dirname, 'images'))); // images papka
 
 // Telegram sozlamalari
-const BOT_TOKEN = 'SIZNING_BOT_TOKEN';
-const CHAT_ID = 'SIZNING_CHAT_ID';
+const BOT_TOKEN = '8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc';
+const CHAT_ID = '7938269088';
 
 // Buyurtma endpointi
 app.post('/sendOrder', async (req, res) => {
