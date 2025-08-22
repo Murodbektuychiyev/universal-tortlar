@@ -1,50 +1,53 @@
-const path = require('path');
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+const express = require("express");
+const axios = require("axios");
+const path = require("path");
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Static fayllar
-app.use(express.static(__dirname)); // index.html va boshqa fayllar
-app.use('/images', express.static(path.join(__dirname, 'images'))); // images papka
+const PORT = 3000;
 
 // Telegram sozlamalari
-const BOT_TOKEN = '8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc';
-const CHAT_ID = '7938269088';
+const BOT_TOKEN = "8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc";
+const CHAT_ID   = "7938269088";
 
-// Buyurtma endpointi
-app.post('/sendOrder', async (req, res) => {
+// Middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+// Frontend HTML
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// Buyurtma route
+app.post("/api/sendOrder", async (req, res) => {
   const { fullName, phone, username, address, product } = req.body;
-  if(!fullName || !phone || !product){
-    return res.json({ ok: false, msg: "Ism, telefon va mahsulot kerak!" });
+
+  if (!fullName || !phone || !product) {
+    return res.status(400).json({ ok: false, msg: "Ism, telefon va mahsulot kerak!" });
   }
 
   const text = `
 📦 Yangi buyurtma:
 Ism: ${fullName}
 Telefon: ${phone}
-Username: ${username || '-'}
-Manzil: ${address || '-'}
+Username: ${username || "-"}
+Manzil: ${address || "-"}
 Mahsulot: ${product}
   `;
 
   try {
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    await axios.post(url, { chat_id: CHAT_ID, text });
+    await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      chat_id: CHAT_ID,
+      text
+    });
     res.json({ ok: true });
   } catch (err) {
-    console.error(err.message);
-    res.json({ ok: false, msg: err.message });
+    console.error(err.response?.data || err.message);
+    res.status(500).json({ ok: false, msg: err.message });
   }
 });
 
-// SPA fallback
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+// Serverni ishga tushurish
+app.listen(PORT, () => {
+  console.log(`Server ishlayapti: http://localhost:${PORT}`);
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
