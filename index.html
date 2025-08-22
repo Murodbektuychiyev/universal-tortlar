@@ -349,45 +349,49 @@ const products = [
   modalBack.addEventListener('click', (e)=>{ if(e.target===modalBack) hideModal(); });
 
   // ======= Davom etish (Node.js + Telegram)
-  proceedBtn.addEventListener('click', async ()=>{
-    if(!selectedProduct) return;
+  proceedBtn.addEventListener('click', async () => {
+  if(!selectedProduct) return;
 
-    const fullName = (document.getElementById('fullName').value || '').trim();
-    const phone    = (document.getElementById('phone').value || '').trim();
-    const username = (document.getElementById('username').value || '').trim();
-    const address  = (document.getElementById('address').value || '').trim();
+  const fullName = document.getElementById('fullName').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const address  = document.getElementById('address').value.trim();
 
-    if(!fullName || !phone){
-      alert("Ism va telefon raqam majburiy!");
-      return;
+  if(!fullName || !phone){
+    alert("Ism va telefon raqam majburiy!");
+    return;
+  }
+
+  const payload = {
+    fullName,
+    phone,
+    username,
+    address,
+    product: `${selectedProduct.title} — ${fmt(selectedProduct.price)} so'm`
+  };
+
+  try {
+    const resp = await fetch('/api/sendOrder', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+
+    if(!resp.ok) throw new Error(`Server javobi: ${resp.status}`);
+
+    const data = await resp.json();
+
+    if(data.ok){
+      alert("Buyurtmangiz qabul qilindi! Tez orada siz bilan bog'lanamiz.");
+      hideModal();
+    } else {
+      alert("Xatolik: " + data.msg);
     }
+  } catch(err){
+    alert("Xatolik yuz berdi: " + err.message);
+  }
+});
 
-    const payload = {
-      fullName, phone, username, address,
-      product: `${selectedProduct.title} — ${fmt(selectedProduct.price)} so'm`
-    };
-
-    try {
-      const resp = await fetch('/api/sendOrder', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      });
-
-
-      const data = await resp.json();
-
-      if(data.ok){
-        alert("Buyurtmangiz qabul qilindi! Tez orada siz bilan bog'lanamiz.");
-        hideModal();
-      } else {
-        alert("Xatolik: " + data.msg);
-      }
-
-    } catch(err){
-      alert("Xatolik yuz berdi: " + err.message);
-    }
-  });
 
   // ======= Mini-so'rov (interaktiv)
   const poll = {shoko:0, fruit:0, caramel:0, special:0};
