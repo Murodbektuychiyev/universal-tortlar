@@ -368,7 +368,7 @@ const products = [
     };
 
     try {
-      const resp = await fetch('http://localhost:3000/sendOrder', {
+      const resp = await fetch('/sendOrder', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(payload)
