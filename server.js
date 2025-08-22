@@ -7,12 +7,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Static fayllar (index.html va images papka)
-app.use(express.static(__dirname));
+// Static fayllar
+app.use(express.static(__dirname)); // index.html va boshqa fayllar
+app.use('/images', express.static(path.join(__dirname, 'images'))); // images papka
 
 // Telegram sozlamalari
-const BOT_TOKEN = '8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc';
-const CHAT_ID = '7938269088';
+const BOT_TOKEN = 'SIZNING_BOT_TOKEN';
+const CHAT_ID = 'SIZNING_CHAT_ID';
 
 // Buyurtma endpointi
 app.post('/sendOrder', async (req, res) => {
@@ -40,7 +41,7 @@ Mahsulot: ${product}
   }
 });
 
-// SPA fallback: barcha GET so‘rovlarni index.html ga yo‘naltirish
+// SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
