@@ -262,31 +262,31 @@ const BOT_USERNAME = "@Tort_Zakazlarim_Bot";
 
 // ==== MAHSULOTLAR ====
 const products = [
-  {id:1,  title:"Tort Shokoladli",       price:160000, img:"public/images/namunarasm1.jpg"},
-  {id:2,  title:"Tort Mevali",           price:155000, img:"public/images/namunarasm2.jpg"},
-  {id:3,  title:"Tort Vanilli",          price:150000, img:"public/images/namunarasm3.jpg"},
-  {id:4,  title:"Tort Karamel",          price:165000, img:"public/images/namunarasm4.jpg"},
-  {id:5,  title:"Tort Qandli",           price:158000, img:"public/images/namunarasm5.jpg"},
-  {id:6,  title:"Tort Yalpizli",         price:162000, img:"public/images/namunarasm6.jpg"},
-  {id:7,  title:"Tort Qulupnayli",       price:157000, img:"public/images/namunarasm7.jpg"},
-  {id:8,  title:"Tort Bananli",          price:154000, img:"public/images/namunarasm8.jpg"},
-  {id:9,  title:"Tort Apelsinli",        price:159000, img:"public/images/namunarasm9.jpg"},
-  {id:10, title:"Tort Anorli",           price:161000, img:"public/images/namunarasm10.jpg"},
-  {id:11, title:"Tort Shokolad-Mevali",  price:165000, img:"public/images/namunarasm11.jpg"},
-  {id:12, title:"Tort Kremli",           price:152000, img:"public/images/namunarasm12.jpg"},
-  {id:13, title:"Tort Kokosli",          price:160000, img:"public/images/namunarasm13.jpg"},
-  {id:14, title:"Tort Qovunli",          price:155000, img:"public/images/namunarasm14.jpg"},
-  {id:15, title:"Tort Olmali",           price:158000, img:"public/images/namunarasm15.jpg"},
-  {id:16, title:"Tort Shokolad-Karamel", price:167000, img:"public/images/namunarasm16.jpg"},
-  {id:17, title:"Tort Vanil-Krem",       price:153000, img:"public/images/namunarasm17.jpg"},
-  {id:18, title:"Tort Mevali-Yalpiz",    price:162000, img:"public/images/namunarasm18.jpg"},
-  {id:19, title:"Tort Qulupnay-Krem",    price:156000, img:"public/images/namunarasm19.jpg"},
-  {id:20, title:"Tort Banan-Shokolad",   price:160000, img:"public/images/namunarasm20.jpg"},
-  {id:21, title:"Tort Apelsin-Krem",     price:158000, img:"public/images/namunarasm21.jpg"},
-  {id:22, title:"Tort Anor-Kokos",       price:164000, img:"public/images/namunarasm22.jpg"},
-  {id:23, title:"Tort Shokolad-Vanil",   price:163000, img:"public/images/namunarasm23.jpg"},
-  {id:24, title:"Tort Karamel-Meva",     price:157000, img:"public/images/namunarasm24.jpg"},
-  {id:25, title:"Tort Maxsus",           price:170000, img:"public/images/namunarasm25.jpg"}
+  {id:1,  title:"Tort Shokoladli",       price:160000, img:"/images/namunarasm1.jpg"},
+  {id:2,  title:"Tort Mevali",           price:155000, img:"/images/namunarasm2.jpg"},
+  {id:3,  title:"Tort Vanilli",          price:150000, img:"/images/namunarasm3.jpg"},
+  {id:4,  title:"Tort Karamel",          price:165000, img:"/images/namunarasm4.jpg"},
+  {id:5,  title:"Tort Qandli",           price:158000, img:"/images/namunarasm5.jpg"},
+  {id:6,  title:"Tort Yalpizli",         price:162000, img:"/images/namunarasm6.jpg"},
+  {id:7,  title:"Tort Qulupnayli",       price:157000, img:"/images/namunarasm7.jpg"},
+  {id:8,  title:"Tort Bananli",          price:154000, img:"/images/namunarasm8.jpg"},
+  {id:9,  title:"Tort Apelsinli",        price:159000, img:"/images/namunarasm9.jpg"},
+  {id:10, title:"Tort Anorli",           price:161000, img:"/images/namunarasm10.jpg"},
+  {id:11, title:"Tort Shokolad-Mevali",  price:165000, img:"/images/namunarasm11.jpg"},
+  {id:12, title:"Tort Kremli",           price:152000, img:"/images/namunarasm12.jpg"},
+  {id:13, title:"Tort Kokosli",          price:160000, img:"/images/namunarasm13.jpg"},
+  {id:14, title:"Tort Qovunli",          price:155000, img:"/images/namunarasm14.jpg"},
+  {id:15, title:"Tort Olmali",           price:158000, img:"/images/namunarasm15.jpg"},
+  {id:16, title:"Tort Shokolad-Karamel", price:167000, img:"/images/namunarasm16.jpg"},
+  {id:17, title:"Tort Vanil-Krem",       price:153000, img:"/images/namunarasm17.jpg"},
+  {id:18, title:"Tort Mevali-Yalpiz",    price:162000, img:"/images/namunarasm18.jpg"},
+  {id:19, title:"Tort Qulupnay-Krem",    price:156000, img:"/images/namunarasm19.jpg"},
+  {id:20, title:"Tort Banan-Shokolad",   price:160000, img:"/images/namunarasm20.jpg"},
+  {id:21, title:"Tort Apelsin-Krem",     price:158000, img:"/images/namunarasm21.jpg"},
+  {id:22, title:"Tort Anor-Kokos",       price:164000, img:"/images/namunarasm22.jpg"},
+  {id:23, title:"Tort Shokolad-Vanil",   price:163000, img:"/images/namunarasm23.jpg"},
+  {id:24, title:"Tort Karamel-Meva",     price:157000, img:"/images/namunarasm24.jpg"},
+  {id:25, title:"Tort Maxsus",           price:170000, img:"/images/namunarasm25.jpg"}
 ];
 
   const gridEl = document.getElementById('grid');
@@ -348,8 +348,8 @@ const products = [
   [closeModal, cancelBtn].forEach(btn=>btn.addEventListener('click', hideModal));
   modalBack.addEventListener('click', (e)=>{ if(e.target===modalBack) hideModal(); });
 
-  // ======= Davom etish (Node.js + Telegram)
-  proceedBtn.addEventListener('click', async () => {
+  // ======= Davom etish (Frontend → Telegram Bot API)
+proceedBtn.addEventListener('click', async () => {
   if(!selectedProduct) return;
 
   const fullName = document.getElementById('fullName').value.trim();
@@ -362,36 +362,43 @@ const products = [
     return;
   }
 
-  const payload = {
-    fullName,
-    phone,
-    username,
-    address,
-    product: `${selectedProduct.title} — ${fmt(selectedProduct.price)} so'm`
-  };
+  // 📌 Bu joyni o'zing to'ldirasan
+  const BOT_TOKEN = "8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc";
+  const CHAT_ID   = "7938269088";
+
+  const text = `
+🆕 Yangi buyurtma!
+
+👤 Ism: ${fullName}
+📞 Telefon: ${phone}
+💬 Telegram: ${username || "—"}
+📍 Manzil: ${address || "—"}
+🎂 Mahsulot: ${selectedProduct.title} — ${fmt(selectedProduct.price)} so'm
+  `;
 
   try {
-    const resp = await fetch('/api/sendOrder', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
+    const resp = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text,
+        parse_mode: "HTML"
+      })
     });
-
-    if(!resp.ok) throw new Error(`Server javobi: ${resp.status}`);
 
     const data = await resp.json();
 
     if(data.ok){
-      alert("Buyurtmangiz qabul qilindi! Tez orada siz bilan bog'lanamiz.");
+      alert("✅ Buyurtmangiz qabul qilindi! Tez orada siz bilan bog'lanamiz.");
       hideModal();
     } else {
-      alert("Xatolik: " + data.msg);
+      alert("❌ Xatolik: " + data.description);
     }
   } catch(err){
-    alert("Xatolik yuz berdi: " + err.message);
+    alert("❌ Serverga chiqishda xato: " + err.message);
   }
 });
-
 
   // ======= Mini-so'rov (interaktiv)
   const poll = {shoko:0, fruit:0, caramel:0, special:0};
