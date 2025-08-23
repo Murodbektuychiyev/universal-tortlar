@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt — Ushoqtepa Tortlari</title>
+  <link rel="icon" href="./images/favicon.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(270deg, #000, #111, #222, #333);
+      background-size: 600% 600%;
+      animation: gradientShift 4.4s ease infinite;
+      color: white;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 15px;
+      animation: wiggle 1.2s infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(0deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
+    .info {
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* Telefon raqam — puls */
+    .phone-anim {
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); color: #ff4500; }
+      50% { transform: scale(1.2); color: #32cd32; }
+    }
+
+    /* Telegram aylanish */
+    .telegram-anim {
+      display: inline-block;
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Manzil chayqalish */
+    .address-anim {
+      display: inline-block;
+      animation: sway 2.5s ease-in-out infinite;
+    }
+
+    @keyframes sway {
+      0% { transform: translate(0, 0) rotate(0); }
+      25% { transform: translate(5px, -3px) rotate(2deg); }
+      50% { transform: translate(0, 3px) rotate(0deg); }
+      75% { transform: translate(-5px, -3px) rotate(-2deg); }
+      100% { transform: translate(0, 0) rotate(0); }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, textarea, button {
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    input, textarea {
+      width: 100%;
+    }
+
+    button {
+      background: #d2691e;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #a0522d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📞 Kontakt</h1>
+    <div class="info">
+      <p>☎️ Telefon: <strong class="phone-anim">+998 99 093 2621</strong></p>
+      <p><span class="telegram-anim">🟦</span> Telegram: <a href="https://t.me/universal_tortlar" target="_blank" style="color:#1e90ff;">Universal Tortlar</a></p>
+      <p><span class="address-anim">📍</span> Manzil: Qashqadaryo viloyati, Koson tumani, Ushoqtepa</p>
+    </div>
+
+    <form id="contactForm">
+      <label for="name">Ism *</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">Telefon *</label>
+      <input type="tel" id="phone" name="phone" required placeholder="+998 XX XXX XX XX">
+
+      <label for="message">Xabar *</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">✉️ Yuborish</button>
+    </form>
+  </div>
+
+  <script>
+    const BOT_TOKEN = "8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc"; 
+    const CHAT_ID = "7938269088";     
+    const URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const message = document.getElementById("message").value;
+
+      const text = `📩 Yangi aloqa so‘rovi!\n👤 Ism: ${name}\n📞 Telefon: ${phone}\n💬 Xabar: ${message}`;
+
+      fetch(URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML"
+        })
+      }).then(res => {
+        if (res.ok) {
+          alert("✅ Xabaringiz yuborildi! Tez orada bog‘lanamiz.");
+          document.getElementById("contactForm").reset();
+        } else {
+          alert("❌ Xatolik yuz berdi. Keyinroq urinib ko‘ring.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ushoqtepa Tortlari — Zakaz onlayn</title>
+  <link rel="icon" href="../images/favicon.png" type="image/png">
+  <meta name="description" content="Ushoqtepa qishlog‘i uchun mazali tortlar. Rasmlar, narxlar, va Telegram bot orqali tezkor buyurtma." />
+  <style>
+/* ===== HEADER ===== */
+header.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #000000;
+  color: white;
+  border-radius: 12px; /* qirra */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* soya */
+}
+
+/* Chap blok: burger + logo yonma-yon */
+header.nav .left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== NAV LINKLAR ===== */
+header.nav nav a {
+  display: inline-block;   /* padding ishlashi uchun */
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+header.nav nav a:hover {
+  background: white;
+  color: black;
+}
+
+/* ===== BURGER TUGMA ===== */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+/* ===== MOBIL HOLAT ===== */
+@media (max-width: 768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;   /* 👈 chapdan joylashadi */
+    gap: 10px;
+    background: #d2691e;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    z-index: 1000; /* 👈 kontent ustiga chiqadi */
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav a {
+    width: 100%;        /* 👈 butun kenglikni egallasin */
+    text-align: left;   /* 👈 yozuv chapda turadi */
+  }
+}
+
+
+
+    :root{
+      --bg:#0f172a;
+      --card:#111827;
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+      --accent:#22d3ee;
+      --accent-2:#fb7185;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background: linear-gradient(135deg, #0f172a, #1e293b, #111827);
+      background-size: 400% 400%;
+      animation: bgShift 4.4s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .nav{
+      max-width:1200px; margin:24px auto; padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; user-select:none;
+      text-decoration:none; color:var(--text);
+    }
+    .logo{
+      width: 44px;
+      height: 44px;
+    }
+    .logo:hover {
+      transform: scale(1.05) rotate(3deg);
+      box-shadow: 0 0 10px var(--accent);
+      transition: 0.3s;
+    }
+    .brand h1{font-size:18px; margin:0; letter-spacing:.3px;}
+    .contact{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.15);
+      padding:8px 12px; border-radius:999px; font-size:14px; color:var(--muted);
+      text-decoration:none;
+    }
+    .pill strong{color:var(--text)}
+    .cta{
+      background:linear-gradient(135deg,var(--accent),#38bdf8);
+      color:#072b35; font-weight:700; border:none; border-radius:999px;
+      padding:10px 16px; cursor:pointer; box-shadow:var(--shadow);
+    }
+    .hero{
+      max-width:1200px; margin:8px auto 24px; padding:0 16px;
+      display:grid; grid-template-columns:1.4fr .6fr; gap:18px;
+    }
+    .heroCard{
+      border-radius:var(--radius); padding:22px; background:rgba(17,24,39,.6);
+      backdrop-filter: blur(8px); box-shadow:var(--shadow);
+    }
+    .heroCard h2{margin:4px 0 8px; font-size:28px}
+    .heroCard p{margin:0; color:var(--muted)}
+    .badgeRow{display:flex; gap:10px; margin-top:10px; flex-wrap:wrap}
+    .badge{
+      background:rgba(34,211,238,.12); color:#a5f3fc;
+      border:1px solid rgba(34,211,238,.25);
+      padding:6px 10px; border-radius:999px; font-size:12px;
+    }
+    .notice{
+      border-left:3px solid var(--ok);
+      background:rgba(34,197,94,.08);
+      color:#bbf7d0; padding:10px 12px; border-radius:10px; margin-top:10px;
+      font-size:14px;
+    }
+    .gridWrap{max-width:1200px; margin:10px auto 80px; padding:0 16px;}
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    .card{
+      background:rgba(17,24,39,.65);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius);
+      overflow:hidden; box-shadow:var(--shadow);
+      display:flex; flex-direction:column;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{ transform: translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.40); }
+    .thumb{
+      aspect-ratio: 4/3;
+      width:100%; object-fit:cover; display:block;
+      background:#0b1220;
+    }
+    .meta{padding:12px 14px}
+    .title{margin:0 0 6px; font-size:16px; letter-spacing:.2px}
+    .price{color:#f0fdf4; font-weight:700}
+    .small{color:var(--muted); font-size:12px}
+    .actions{display:flex; align-items:center; gap:10px; padding:0 14px 14px}
+    .btn{
+      flex:1; padding:10px 12px; border-radius:10px; border:none; cursor:pointer;
+      font-weight:700;
+    }
+    .btn.order{background:linear-gradient(135deg,var(--accent),#38bdf8); color:#062c37;}
+    .btn.preview{background:rgba(255,255,255,.06); color:var(--text); border:1px solid rgba(255,255,255,.12)}
+    .btn:active{transform:translateY(1px)}
+    .modalBack{
+      position:fixed; inset:0; display:none; place-items:center;
+      background:rgba(0,0,0,.55); z-index:1000; padding:16px;
+    }
+    .modal{
+      width:min(560px, 100%); background:#0b1220; border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; box-shadow:var(--shadow); overflow:hidden;
+    }
+    .modalHead{
+      display:flex; justify-content:space-between; align-items:center; padding:14px 16px;
+      background:linear-gradient(135deg, rgba(34,211,238,.12), rgba(251,113,133,.10));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .modalHead h3{margin:0; font-size:18px}
+    .x{background:transparent; color:var(--text); border:none; font-size:22px; cursor:pointer}
+    .modalBody{padding:16px; display:grid; gap:12px}
+    label{font-size:14px; color:var(--muted)}
+    input, textarea, select{
+      width:100%; padding:10px 12px; border-radius:10px; background:#0f172a; color:var(--text);
+      border:1px solid rgba(255,255,255,.12); outline:none;
+    }
+    .row{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+    .hint{font-size:12px; color:var(--muted)}
+    .modalFoot{display:flex; gap:10px; justify-content:flex-end; padding:14px 16px; border-top:1px solid rgba(255,255,255,.08)}
+    .danger{color:#fecaca}
+    .success{color:#bbf7d0}
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      cursor: pointer;
+      z-index: 999;
+      width: 50px;
+      height: 50px;
+    }
+    footer{
+      max-width:1200px; margin:0 auto; padding:16px;
+      color:var(--muted); text-align:center; border-top:1px dashed rgba(255,255,255,.12)
+    }
+    @media (max-width:860px){
+      .hero{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <!-- Chap blok: burger + logo -->
+    <div class="left">
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <a class="brand" href="#">
+        <img src="../images/logo.png" alt="Universal Tortlar" class="logo" />
+        <h1>Universal Tortlar • Ushoqtepa</h1>
+      </a>
+    </div>
+
+    <!-- O‘rtadagi navigatsiya -->
+    <nav>
+      <a href="../index.html">Asosiy</a>
+      <a href="./mahsulotlar.html">Mahsulotlar</a>
+      <a href="./fikrlar.html">Fikrlar</a>
+      <a href="./contact.html">Kontakt</a>
+    </nav>
+
+    <!-- O‘ngdagi kontakt -->
+    <div class="contact">
+      <span class="pill">☎️ <strong id="contactPhone">+998 99 093 2621</strong></span>
+      <a class="pill" href="https://t.me/universal_tortlar" target="_blank" rel="noopener">
+        🟦 Telegram guruh
+      </a>
+      <button class="cta" id="openPoll">🍰 Qaysi tort yoqadi?</button>
+    </div>
+  </header>
+
+  <!-- Back to Top tugmasi -->
+  <img src="../images/back.png" id="backToTop" alt="Back to top">
+</body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="heroCard">
+      <h2>🎂 Orzudagi shirinliklar manzili</h2>
+      <p>Har kuni yangi tortlar, chiroyli dizayn va eng muhimi — <strong>Sifat foydadan ustun!</strong></p>
+      <div class="badgeRow">
+        <span class="badge">📱 Mobilga mos</span>
+        <span class="badge">⚡ Tez buyurtma</span>
+        <span class="badge">🤝 Mahalliy qo‘llab-quvvatlash</span>
+      </div>
+      <div class="notice">🧁 Siz ko‘ring, tanlang, “Zakaz qilish” tugmasini bosing — qolganini Telegram botimiz tartiblaydi.</div>
+    </div>
+    <div class="heroCard">
+      <h2>📊 Bugungi mini-so‘rov</h2>
+      <p class="small">Qaysi turdagi tortni ko‘proq xohlaysiz?</p>
+      <div class="badgeRow" id="pollOptions">
+        <button class="pill" data-poll="shoko">🍫 Shokoladli</button>
+        <button class="pill" data-poll="fruit">🍓 Mevali</button>
+        <button class="pill" data-poll="caramel">🍯 Karamelli</button>
+        <button class="pill" data-poll="special">🎁 “Sirli retsept”</button>
+      </div>
+      <p id="pollResult" class="small" style="margin-top:10px;"></p>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <main class="gridWrap">
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <!-- Order Modal -->
+  <div class="modalBack" id="modalBack" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalHead">
+        <h3 id="modalTitle">Zakaz qilish</h3>
+        <button class="x" id="closeModal" aria-label="Yopish">×</button>
+      </div>
+      <div class="modalBody">
+        <div class="row">
+          <div>
+            <label for="fullName">Ism Familiya</label>
+            <input id="fullName" type="text" placeholder="Ali Karimov" autocomplete="name">
+          </div>
+          <div>
+            <label for="phone">Telefon raqami</label>
+            <input id="phone" type="tel" placeholder="+998 90 123 45 67" autocomplete="tel">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="username">Telegram username (ixtiyoriy)</label>
+            <input id="username" type="text" placeholder="@username" autocomplete="off">
+          </div>
+          <div>
+            <label for="address">Manzil (ixtiyoriy)</label>
+            <input id="address" type="text" placeholder="Ushoqtepa, ko‘cha..., uy..." autocomplete="street-address">
+          </div>
+        </div>
+        <div>
+          <label>Tanlangan tort</label>
+          <div class="hint" id="productPreview">—</div>
+        </div>
+        <div class="hint">
+          ⚠️ Maxfiylik sabablari bilan ma’lumotlar botda yakuniy tasdiqlanadi.
+          “Davom etish” bosilganda Telegram bot ochiladi va buyurtmangiz bog‘lanadi.
+        </div>
+      </div>
+      <div class="modalFoot">
+        <button class="btn preview" id="cancelBtn">Bekor qilish</button>
+        <button class="btn order" id="proceedBtn">➡️ Davom etish (Telegram)</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Universal Tortlar • Ushoqtepa — Sifat foydadan ustun! Owner: Murodbek Tuychiyev
+  </footer>
+  
+  <script>
+function toggleMenu() {
+  document.querySelector("nav").classList.toggle("show");
+}
+
+    // ==== QO'SHIMCHA O'ZGARUVCHILAR ====
+const CONTACT_PHONE = "+998 99 093 2621";
+const BOT_USERNAME = "@Tort_Zakazlarim_Bot";
+
+// ==== MAHSULOTLAR ====
+const products = [
+  {id:1,  title:"Tort Shokoladli",       price:160000, img:"/images/namunarasm1.jpg"},
+  {id:2,  title:"Tort Mevali",           price:155000, img:"/images/namunarasm2.jpg"},
+  {id:3,  title:"Tort Vanilli",          price:150000, img:"/images/namunarasm3.jpg"},
+  {id:4,  title:"Tort Karamel",          price:165000, img:"/images/namunarasm4.jpg"},
+  {id:5,  title:"Tort Qandli",           price:158000, img:"/images/namunarasm5.jpg"},
+  {id:6,  title:"Tort Yalpizli",         price:162000, img:"/images/namunarasm6.jpg"},
+  {id:7,  title:"Tort Qulupnayli",       price:157000, img:"/images/namunarasm7.jpg"},
+  {id:8,  title:"Tort Bananli",          price:154000, img:"/images/namunarasm8.jpg"},
+  {id:9,  title:"Tort Apelsinli",        price:159000, img:"/images/namunarasm9.jpg"},
+  {id:10, title:"Tort Anorli",           price:161000, img:"/images/namunarasm10.jpg"},
+  {id:11, title:"Tort Shokolad-Mevali",  price:165000, img:"/images/namunarasm11.jpg"},
+  {id:12, title:"Tort Kremli",           price:152000, img:"/images/namunarasm12.jpg"},
+  {id:13, title:"Tort Kokosli",          price:160000, img:"/images/namunarasm13.jpg"},
+  {id:14, title:"Tort Qovunli",          price:155000, img:"/images/namunarasm14.jpg"},
+  {id:15, title:"Tort Olmali",           price:158000, img:"/images/namunarasm15.jpg"},
+  {id:16, title:"Tort Shokolad-Karamel", price:167000, img:"/images/namunarasm16.jpg"},
+  {id:17, title:"Tort Vanil-Krem",       price:153000, img:"/images/namunarasm17.jpg"},
+  {id:18, title:"Tort Mevali-Yalpiz",    price:162000, img:"/images/namunarasm18.jpg"},
+  {id:19, title:"Tort Qulupnay-Krem",    price:156000, img:"/images/namunarasm19.jpg"},
+  {id:20, title:"Tort Banan-Shokolad",   price:160000, img:"/images/namunarasm20.jpg"},
+  {id:21, title:"Tort Apelsin-Krem",     price:158000, img:"/images/namunarasm21.jpg"},
+  {id:22, title:"Tort Anor-Kokos",       price:164000, img:"/images/namunarasm22.jpg"},
+  {id:23, title:"Tort Shokolad-Vanil",   price:163000, img:"/images/namunarasm23.jpg"},
+  {id:24, title:"Tort Karamel-Meva",     price:157000, img:"/images/namunarasm24.jpg"},
+  {id:25, title:"Tort Maxsus",           price:170000, img:"/images/namunarasm25.jpg"}
+];
+
+  const gridEl = document.getElementById('grid');
+  products.forEach(p=>{
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <img class="thumb" src="${p.img}" alt="${p.title}" loading="lazy" />
+      <div class="meta">
+        <h3 class="title">${p.title}</h3>
+        <div class="small">Mahalliy pishirilgan • Fresh</div>
+        <div class="price">${fmt(p.price)} so'm</div>
+      </div>
+      <div class="actions">
+        <button class="btn preview" data-preview="${p.id}">Ko'rib chiqish</button>
+        <button class="btn order" data-order="${p.id}">Zakaz qilish</button>
+      </div>
+    `;
+    gridEl.appendChild(card);
+  });
+
+  function fmt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+
+  // ======= HEADER sozlash
+  document.getElementById('contactPhone').textContent = CONTACT_PHONE;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ======= MODAL
+  const modalBack = document.getElementById('modalBack');
+  const closeModal = document.getElementById('closeModal');
+  const cancelBtn  = document.getElementById('cancelBtn');
+  const proceedBtn = document.getElementById('proceedBtn');
+  const productPreview = document.getElementById('productPreview');
+  let selectedProduct = null;
+
+  function openModal(prod){
+    selectedProduct = prod;
+    productPreview.textContent = `${prod.title} — ${fmt(prod.price)} so'm`;
+    modalBack.style.display = 'grid';
+    document.getElementById('modalTitle').textContent = `Zakaz: ${prod.title}`;
+  }
+
+  function hideModal(){ modalBack.style.display = 'none'; }
+
+  document.addEventListener('click', (e)=>{
+    const t = e.target;
+    if(t.matches('[data-preview]')){
+      const id = +t.getAttribute('data-preview');
+      const prod = products.find(x=>x.id===id);
+      if(prod){ window.open(prod.img, '_blank'); }
+    }
+    if(t.matches('[data-order]')){
+      const id = +t.getAttribute('data-order');
+      const prod = products.find(x=>x.id===id);
+      if(prod){ openModal(prod); }
+    }
+  });
+
+  [closeModal, cancelBtn].forEach(btn=>btn.addEventListener('click', hideModal));
+  modalBack.addEventListener('click', (e)=>{ if(e.target===modalBack) hideModal(); });
+
+  // ======= Davom etish (Frontend → Telegram Bot API)
+proceedBtn.addEventListener('click', async () => {
+  if(!selectedProduct) return;
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const address  = document.getElementById('address').value.trim();
+
+  if(!fullName || !phone){
+    alert("Ism va telefon raqam majburiy!");
+    return;
+  }
+
+  // 📌 Bu joyni o'zing to'ldirasan
+  const BOT_TOKEN = "8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc";
+  const CHAT_ID   = "7938269088";
+
+  const text = `
+🆕 Yangi buyurtma!
+
+👤 Ism: ${fullName}
+📞 Telefon: ${phone}
+💬 Telegram: ${username || "—"}
+📍 Manzil: ${address || "—"}
+🎂 Mahsulot: ${selectedProduct.title} — ${fmt(selectedProduct.price)} so'm
+  `;
+
+  try {
+    const resp = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text,
+        parse_mode: "HTML"
+      })
+    });
+
+    const data = await resp.json();
+
+    if(data.ok){
+      alert("✅ Buyurtmangiz qabul qilindi! Tez orada siz bilan bog'lanamiz.");
+      hideModal();
+    } else {
+      alert("❌ Xatolik: " + data.description);
+    }
+  } catch(err){
+    alert("❌ Serverga chiqishda xato: " + err.message);
+  }
+});
+
+  // ======= Mini-so'rov (interaktiv)
+  const poll = {shoko:0, fruit:0, caramel:0, special:0};
+  const pollOptions = document.getElementById('pollOptions');
+  const pollResult  = document.getElementById('pollResult');
+  pollOptions.addEventListener('click', (e)=>{
+    if(e.target && e.target.dataset.poll){
+      poll[e.target.dataset.poll]++;
+      const total = Object.values(poll).reduce((a,b)=>a+b,0);
+      const pc = k => (total? Math.round(poll[k]*100/total) : 0) + '%';
+      pollResult.innerHTML =
+        `Natijalar — 🍫 ${pc('shoko')} · 🍓 ${pc('fruit')} · 🍯 ${pc('caramel')} · 🎁 ${pc('special')}`;
+    }
+  });
+
+  document.getElementById('openPoll').addEventListener('click', ()=>{
+    window.scrollTo({top: document.querySelector('.hero').offsetTop, behavior:'smooth'});
+  });
+
+  const backToTop = document.getElementById("backToTop");
+  const SHOW_AFTER = 200;
+  window.addEventListener("scroll", () => {
+    backToTop.style.display = (window.scrollY > SHOW_AFTER) ? "block" : "none";
+  });
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fikrlar — Ushoqtepa Tortlari</title>
+<link rel="icon" href="./images/favicon.png" type="image/png">
+  <style>
+    /* Body gradient animatsiya */
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+      animation: gradientChange 22s infinite alternate;
+      background-size: 400% 400%;
+    }
+
+    @keyframes gradientChange {
+      0%   { background: linear-gradient(135deg, #0f0f0f, #1a1a1a); }
+      25%  { background: linear-gradient(135deg, #1a1a1a, #3a0ca3); }
+      50%  { background: linear-gradient(135deg, #3a0ca3, #7209b7); }
+      75%  { background: linear-gradient(135deg, #7209b7, #f72585); }
+      100% { background: linear-gradient(135deg, #f72585, #0f0f0f); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 500px;
+      width: 100%;
+      background: rgba(20,20,20,0.9);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    select {
+      background: #2a2a2a;
+    }
+
+    button {
+      background: #f72585;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #b5179e;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <form id="feedbackForm">
+    <h1>📝 Fikrlaringizni yozing</h1>
+
+    <label for="name">Ismingiz *</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="message">Fikringiz *</label>
+    <textarea id="message" name="message" rows="4" required></textarea>
+
+    <label for="rating">Baholash *</label>
+    <select id="rating" name="rating" required>
+      <option value="">Bahoni tanlang</option>
+      <option value="⭐">⭐</option>
+      <option value="⭐⭐">⭐⭐</option>
+      <option value="⭐⭐⭐">⭐⭐⭐</option>
+      <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+      <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+    </select>
+
+    <button type="submit">✉️ Yuborish</button>
+  </form>
+
+  <script>
+    const BOT_TOKEN = "8171377035:AAFz5AaUT_vNgM4DT2B1nv5mA_6cuxI0IQc";  // 👈 Bot tokeningizni yozasiz
+    const CHAT_ID = "7938269088";      // 👈 Chat IDingizni yozasiz
+    const URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+      const rating = document.getElementById("rating").value;
+
+      const text = `📝 Yangi fikr!\n👤 Ism: ${name}\n⭐ Baholash: ${rating}\n💬 Fikr: ${message}`;
+
+      fetch(URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML"
+        })
+      }).then(res => {
+        if (res.ok) {
+          alert("✅ Fikringiz yuborildi! Rahmat.");
+          document.getElementById("feedbackForm").reset();
+        } else {
+          alert("❌ Xatolik yuz berdi. Keyinroq urinib ko‘ring.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
